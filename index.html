@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone/babel.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1>
+      Mój pierwszy quiz
+    </h1>
+  </header>
+
+  <main>
+    <article>
+        <form id = 'quiz'></form>
+
+        <button id='check'>Sprawdź</button>
+        <div id='verdict'></div>       
+    </article>
+  </main>
+
+<script type='text/babel'>
+let score = 0;
+const btn = document.querySelector('#check');
+btn.addEventListener('click',checkTheAnswers);
+
+function checkTheAnswers(){
+  content.forEach(function(answer, i){
+    const questions = document.querySelectorAll(`input[name=question_${i}]`);
+    questions.forEach(function(q){
+      if (q.checked && q.value==answer.correct) {
+        score++;
+      }
+    });
+  });
+  document.querySelector('#verdict').innerHTML='Twój wynik: ' + score + 'pkt.';
+  score = 0;
+}
+
+const content = [{
+  question: 'Czy ten quiz jest łatwy?',
+  A: 'Tak, bardzo łatwy',
+  B: 'Trudny',
+  C: 'W sam raz',
+  correct: 'B'
+},
+{
+  question: 'Czy ten quiz jest przyjemny?',
+  A: 'Tak, bardzo przyjemny',
+  B: 'Okropny',
+  C: 'Ujdzie',
+  correct: 'A'
+},
+{
+  question: 'Czy więcej takich quizów?',
+  A: 'Nigdy w życiu',
+  B: 'Kopytko',
+  C: 'Tak',
+  correct: 'C'
+}
+];
+
+function QuestionItem({question, questionNumber, answerA, answerB, answerC}){
+  return(
+    <fieldset> 
+      <legend>
+        {question}
+      </legend>
+      <div className='answer'>
+        <div><label><input type='radio' name={questionNumber} value='A'/>{answerA}</label></div>
+        <div><label><input type='radio' name={questionNumber} value='B'/>{answerB}</label></div>
+        <div><label><input type='radio' name={questionNumber} value='C'/>{answerC}</label></div>
+      </div>
+    </fieldset>
+  );
+}
+
+function Quiz(props){
+    const content = props.data;
+    const listItems = content.map((number,i) =>
+        <li key={i}>
+            <QuestionItem
+                question={content[i].question}
+                questionNumber={'question_'+i}
+                answerA={content[i].A}
+                answerB={content[i].B}
+                answerC={content[i].C}
+            />
+        </li>
+  );
+  return (
+    <ul>{listItems}</ul>
+  );
+}
+
+ReactDOM.render(
+  <Quiz data={content}/>,
+  document.getElementById('quiz')
+);
+</script>
+</body>
+</html>
