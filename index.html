@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <title>Quiz</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+  <link href="styles.css" rel="stylesheet">
   <script src="https://unpkg.com/react/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/babel-standalone/babel.js"></script>
@@ -19,8 +20,7 @@
 
   <main>
     <article>
-        <form id = 'quiz'></form>
-
+        <form id='quiz'></form>
         <button id='check'>Sprawdź</button>
         <div id='verdict'></div>       
     </article>
@@ -32,11 +32,14 @@ const btn = document.querySelector('#check');
 btn.addEventListener('click',checkTheAnswers);
 
 function checkTheAnswers(){
-  content.forEach(function(answer, i){
+  data.forEach(function(answer, i){
     const questions = document.querySelectorAll(`input[name=question_${i}]`);
     questions.forEach(function(q){
-      if (q.checked && q.value==answer.correct) {
+      q.parentElement.classList.add('badAnswer');
+      if (q.checked && q.value==answer.correctAnswer) {
         score++;
+        q.parentElement.classList.toggle('badAnswer');
+        q.parentElement.classList.add('goodAnswer');
       }
     });
   });
@@ -44,39 +47,44 @@ function checkTheAnswers(){
   score = 0;
 }
 
-const content = [{
+const data = [{
   question: 'Czy ten quiz jest łatwy?',
-  A: 'Tak, bardzo łatwy',
-  B: 'Trudny',
-  C: 'W sam raz',
-  correct: 'B'
+  answers: {
+    a: 'Tak, bardzo łatwy',
+    b: 'Trudny',
+    c: 'W sam raz'
+  },
+  correctAnswer: 'b'
 },
 {
   question: 'Czy ten quiz jest przyjemny?',
-  A: 'Tak, bardzo przyjemny',
-  B: 'Okropny',
-  C: 'Ujdzie',
-  correct: 'A'
+  answers: {
+    a: 'Tak, bardzo przyjemny',
+    b: 'Okropny',
+    c: 'Ujdzie',
+  },
+  correctAnswer: 'a'
 },
 {
-  question: 'Czy więcej takich quizów?',
-  A: 'Nigdy w życiu',
-  B: 'Kopytko',
-  C: 'Tak',
-  correct: 'C'
+  question: 'Czy chcesz więcej takich quizów?',
+  answers: {
+    a: 'Nigdy w życiu',
+    b: 'Kopytko',
+    c: 'Tak',
+  },
+  correctAnswer: 'c'
 }
 ];
 
-function QuestionItem({question, questionNumber, answerA, answerB, answerC}){
+function QuestionItem({question, questionNumber, answers}){
   return(
     <fieldset> 
       <legend>
         {question}
       </legend>
-      <div className='answer'>
-        <div><label><input type='radio' name={questionNumber} value='A'/>{answerA}</label></div>
-        <div><label><input type='radio' name={questionNumber} value='B'/>{answerB}</label></div>
-        <div><label><input type='radio' name={questionNumber} value='C'/>{answerC}</label></div>
+      <div className='answers'>
+        {Object.entries(answers).map(([k, v], i) => 
+          <div className='answer' key={i}><label><input type='radio' name={questionNumber} value={k}/>{v}</label></div>)}
       </div>
     </fieldset>
   );
@@ -84,26 +92,25 @@ function QuestionItem({question, questionNumber, answerA, answerB, answerC}){
 
 function Quiz(props){
     const content = props.data;
-    const listItems = content.map((number,i) =>
+    const listItems = content.map((object,i) =>
         <li key={i}>
             <QuestionItem
-                question={content[i].question}
+                question={object.question}
                 questionNumber={'question_'+i}
-                answerA={content[i].A}
-                answerB={content[i].B}
-                answerC={content[i].C}
+                answers={object.answers}
             />
         </li>
-  );
+    );
   return (
     <ul>{listItems}</ul>
   );
 }
 
 ReactDOM.render(
-  <Quiz data={content}/>,
+  <Quiz data={data}/>,
   document.getElementById('quiz')
 );
+
 </script>
 </body>
 </html>
