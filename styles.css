@@ -1,10 +1,9 @@
-
 body {
-    width:90%;
-    margin: auto;
+  width: 90%;
+  margin: auto;
 }
 
-header{
+header {
   padding: 10px 50px;
   background-color: #dc0032;
   color: white;
@@ -12,12 +11,10 @@ header{
 
 main {
   font-size: 18px;
-  position: relative;
 }
 
 ul {
   list-style-type: none;
-  margin: 0;
   left: 50px;
 }
 
@@ -25,16 +22,15 @@ li {
   margin: 15px 0;
 }
 
-label{
+label {
   cursor: pointer;
 }
 
-label input{
+label input {
   cursor: pointer;
-
 }
 
-fieldset{
+fieldset {
   border-radius: 5px;
   background: rgba(240, 240, 240);
 }
@@ -55,11 +51,19 @@ fieldset{
   margin-right: 8px;
 }
 
-.badAnswer{
+.badAnswer {
   color: red;
 }
 
-.goodAnswer{
+.goodAnswer {
   color: green;
   font-weight: bold;
+}
+
+.answers img {
+  width: 50%;
+}
+
+#verdict {
+  margin: 20px 0;
 }
