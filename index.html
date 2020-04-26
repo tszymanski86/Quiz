@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Quiz</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
   <link href="styles.css" rel="stylesheet">
@@ -43,9 +44,8 @@ function checkTheAnswers() {
       q.disabled = true;
       if (q.value == answer.correctAnswer) {
         q.parentElement.classList.add("goodAnswer");
-        if (q.checked) score++;
-      }
-      if (q.checked && q.value != answer.correctAnswer) {
+        if (q.checked) { score++; }
+      } else if (q.checked) {
         q.parentElement.classList.add("badAnswer");
       }
     });
@@ -81,7 +81,7 @@ const data = [
     },
     {
       question:
-        "3. W ciągu ostatnich 20 lat liczba ludzi żyjących w skrajnym ubustwie...?",
+        "3. W ciągu ostatnich 20 lat liczba ludzi żyjących w skrajnym ubóstwie...?",
       answers: {
         a: "uległa niemal podwojeniu",
         b: "pozostała na tym samym poziomie",
@@ -100,7 +100,7 @@ const data = [
     },
     {
       question:
-        "5. Na świecie żyje około 2 miliardów dzieci w wieku 0-15 lat. Ile dzieci będzie w 2100 roku według szacunków Organizacji Narodów Zjednoczonych",
+        "5. Na świecie żyje około 2 miliardów dzieci w wieku 0-15 lat. Ile dzieci będzie w 2100 roku według szacunków Organizacji Narodów Zjednoczonych?",
       answers: {
         a: "4 miliardy",
         b: "3 miliardy",
@@ -120,7 +120,7 @@ const data = [
     },
     {
       question:
-        "7. Jak zmieniła się liczba zgonów spowodowanych klęskami żywiołowymi",
+        "7. Jak zmieniła się liczba zgonów spowodowanych klęskami żywiołowymi?",
       answers: {
         a: "zwiększyła się ponaddwukrotnie",
         b: "pozostała bez zmian",
@@ -130,7 +130,8 @@ const data = [
     },
     {
       question:
-        "8. Obecnie na świecie żyje około 7 miliardów ludzi. Która z map najtrafniej ukazuje rozmieszczenie populaji? (Każda z postaci odpowiada jednemu miliardowi ludz)",
+        "8. Obecnie na świecie żyje około 7 miliardów ludzi. Która z map najtrafniej ukazuje rozmieszczenie populacji? (Każda z postaci odpowiada jednemu miliardowi ludzi)",
+        imgSrc: 'img/maps.png',
       answers: {
         a: "A",
         b: "B",
@@ -169,7 +170,7 @@ const data = [
     },
     {
       question:
-        "12. Jaki procent ludzi na świecie ma w jakimś stopniu dostęp do elektryczności",
+        "12. Jaki procent ludzi na świecie ma w jakimś stopniu dostęp do elektryczności?",
       answers: {
         a: "20%",
         b: "50%",
@@ -195,6 +196,7 @@ function QuestionItem({ item, questionNumber }) {
     <fieldset>
       <legend>{item.question}</legend>
       <div className="answers">
+        {item.imgSrc && <img src={item.imgSrc} />}
         {Object.entries(item.answers).map(([k, v], i) => (
           <div className="answer" key={i}>
             <label>
@@ -229,16 +231,6 @@ ReactDOM.render(
   <Quiz data={data} />,
   document.getElementById("quiz")
 );
-
-addImg();
-
-function addImg(){
-  const items = document.getElementsByName('question_7');
-  const answers = items[0].parentElement.parentElement.parentElement;
-  const img = document.createElement('img');
-  img.src = 'img/mapy.png';
-  answers.prepend(img);
-}
 </script>
 </body>
 </html>
