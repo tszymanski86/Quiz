@@ -28,7 +28,7 @@
   </main>
 
   <footer>
-    Test ten pochodzi z książki <a href='https://lubimyczytac.pl/ksiazka/4860810/factfulness-dlaczego-swiat-jest-lepszy-niz-myslimy-czyli-jak-stereotypy-zastapic-realna-wiedza'>Factfulness. Dlaczego świat jest lepszy, niż myślimy, czyli jak stereotypy zastąpić realną wiedzą</a> Hansa Rosling'a. Opiera się na danych statystycznych udostępnianych przez Bank Światowy, UNICEF, WHO, IUCN Red List i UN-Pop.
+    Test ten pochodzi z książki <a href='https://lubimyczytac.pl/ksiazka/4860810/factfulness-dlaczego-swiat-jest-lepszy-niz-myslimy-czyli-jak-stereotypy-zastapic-realna-wiedza' target='_blank'>Factfulness. Dlaczego świat jest lepszy, niż myślimy, czyli jak stereotypy zastąpić realną wiedzą</a> Hansa Rosling'a. Opiera się na danych statystycznych udostępnianych przez Bank Światowy, UNICEF, WHO, IUCN Red List i UN-Pop.
   </footer>
 
 <script type='text/babel'>
@@ -182,7 +182,7 @@ const data = [
 function QuestionItem({ item, questionNumber }) {
   return (
     <fieldset>
-      <legend>{item.question}</legend>
+      <div className="legend">{item.question}</div>
       <div className="answers">
         {item.imgSrc && <img src={item.imgSrc} />}
         {Object.entries(item.answers).map(([k, v], i) => (
