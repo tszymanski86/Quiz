@@ -65,7 +65,7 @@ fieldset {
 }
 
 .answers img {
-  width: 800px;
+  width: 750px;
 }
 
 #verdict {
@@ -73,10 +73,6 @@ fieldset {
 }
 
 @media only screen and (max-width: 900px) {
-  body {
-    width: 100%;
-  }
-
   .answers img {
     width: 100%;
   }
