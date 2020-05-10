@@ -202,7 +202,7 @@ const QuestionItem = ({ item, questionNumber }) => {
   );
 }
 
-const QuizContent = (props) => {
+const Quiz = (props) => {
   const content = props.data;
   const listItems = content.map((item, i) => (
     <li key={i}>
@@ -215,10 +215,9 @@ const QuizContent = (props) => {
   return <ul>{listItems}</ul>;
 }
 
-const Quiz = <QuizContent data={data} />;
 
 ReactDOM.render(
-  Quiz,
+  <Quiz data={data} />,
   document.getElementById("quiz")
 );
 </script>
