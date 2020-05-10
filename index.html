@@ -179,7 +179,7 @@ const data = [
   },
 ];
 
-function QuestionItem({ item, questionNumber }) {
+const QuestionItem = ({ item, questionNumber }) => {
   return (
     <fieldset>
       <div className="legend">{item.question}</div>
@@ -202,7 +202,7 @@ function QuestionItem({ item, questionNumber }) {
   );
 }
 
-function Quiz(props) {
+const QuizContent = (props) => {
   const content = props.data;
   const listItems = content.map((item, i) => (
     <li key={i}>
@@ -215,8 +215,10 @@ function Quiz(props) {
   return <ul>{listItems}</ul>;
 }
 
+const Quiz = <QuizContent data={data} />;
+
 ReactDOM.render(
-  <Quiz data={data} />,
+  Quiz,
   document.getElementById("quiz")
 );
 </script>
