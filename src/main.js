@@ -2,7 +2,7 @@ let score = 0;
 document.querySelector("#check").addEventListener("click", checkTheAnswers);
 
 
-function checkTheAnswers() {
+const checkTheAnswers = () => {
   DATA.forEach(function (answer, i) {
     const questions = document.querySelectorAll(`input[name=question_${i}]`);
     questions.forEach(function (q) {
