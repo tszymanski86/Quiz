@@ -4,7 +4,7 @@ var score = 0;
 document.querySelector("#check").addEventListener("click", checkTheAnswers);
 
 function checkTheAnswers() {
-  data.forEach(function (answer, i) {
+  DATA.forEach(function (answer, i) {
     var questions = document.querySelectorAll("input[name=question_" + i + "]");
     questions.forEach(function (q) {
       q.disabled = true;
@@ -26,7 +26,7 @@ function checkTheAnswers() {
   });
 }
 
-var data = [{
+var DATA = [{
   question: "1. Ile dziewcząt kończy szkołę podstawową w krajach o niskich dochodach?",
   answers: {
     a: "20%",
@@ -187,4 +187,4 @@ var Quiz = function Quiz(props) {
   );
 };
 
-ReactDOM.render(React.createElement(Quiz, { data: data }), document.getElementById("quiz"));
+ReactDOM.render(React.createElement(Quiz, { data: DATA }), document.getElementById("quiz"));
