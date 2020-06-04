@@ -133,9 +133,9 @@ var DATA = [{
   correctAnswer: "a"
 }];
 
-var QuestionItem = function QuestionItem(_ref) {
-  var item = _ref.item,
-      questionNumber = _ref.questionNumber;
+var QuestionItem = function QuestionItem(props) {
+  var item = props.item,
+      questionNumber = props.questionNumber;
 
   return React.createElement(
     "fieldset",
@@ -149,10 +149,10 @@ var QuestionItem = function QuestionItem(_ref) {
       "div",
       { className: "answers" },
       item.imgSrc && React.createElement("img", { src: item.imgSrc }),
-      Object.entries(item.answers).map(function (_ref2, i) {
-        var _ref3 = _slicedToArray(_ref2, 2),
-            k = _ref3[0],
-            v = _ref3[1];
+      Object.entries(item.answers).map(function (_ref, i) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            k = _ref2[0],
+            v = _ref2[1];
 
         return React.createElement(
           "div",

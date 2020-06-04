@@ -145,7 +145,8 @@ const DATA = [
   },
 ];
 
-const QuestionItem = ({ item, questionNumber }) => {
+const QuestionItem = (props) => {
+  const {item, questionNumber} = props;
   return (
     <fieldset>
       <div className="legend">{item.question}</div>
