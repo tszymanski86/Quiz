@@ -3,7 +3,7 @@ document.querySelector("#check").addEventListener("click", checkTheAnswers);
 
 
 function checkTheAnswers() {
-  data.forEach(function (answer, i) {
+  DATA.forEach(function (answer, i) {
     const questions = document.querySelectorAll(`input[name=question_${i}]`);
     questions.forEach(function (q) {
       q.disabled = true;
@@ -24,7 +24,7 @@ window.scrollTo({
 });
 }
 
-const data = [
+const DATA = [
   {
     question: "1. Ile dziewcząt kończy szkołę podstawową w krajach o niskich dochodach?",
     answers: {
@@ -183,6 +183,6 @@ const Quiz = (props) => {
 
 
 ReactDOM.render(
-  <Quiz data={data} />,
+  <Quiz data={DATA} />,
   document.getElementById("quiz")
 );
