@@ -3,7 +3,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 var score = 0;
 document.querySelector("#check").addEventListener("click", checkTheAnswers);
 
-function checkTheAnswers() {
+var checkTheAnswers = function checkTheAnswers() {
   DATA.forEach(function (answer, i) {
     var questions = document.querySelectorAll("input[name=question_" + i + "]");
     questions.forEach(function (q) {
@@ -24,7 +24,7 @@ function checkTheAnswers() {
     left: 0,
     behavior: "smooth"
   });
-}
+};
 
 var DATA = [{
   question: "1. Ile dziewcząt kończy szkołę podstawową w krajach o niskich dochodach?",
