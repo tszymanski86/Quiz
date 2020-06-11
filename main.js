@@ -1,30 +1,6 @@
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var score = 0;
-document.querySelector("#check").addEventListener("click", checkTheAnswers);
-
-function checkTheAnswers() {
-  DATA.forEach(function (answer, i) {
-    var questions = document.querySelectorAll("input[name=question_" + i + "]");
-    questions.forEach(function (q) {
-      q.disabled = true;
-      if (q.value == answer.correctAnswer) {
-        q.parentElement.classList.add("goodAnswer");
-        if (q.checked) {
-          score++;
-        }
-      } else if (q.checked) {
-        q.parentElement.classList.add("badAnswer");
-      }
-    });
-  });
-  document.querySelector("#verdict").innerHTML = "Tw\xF3j wynik: " + score + " pkt.</br></br>Okazuje si\u0119, \u017Ce nasz \u015Bwiat, pomimo swoich niedoskona\u0142o\u015Bci, jest w znacznie lepszym stanie, ni\u017C si\u0119 spodziewamy.";
-  window.scrollTo({
-    top: document.body.scrollHeight,
-    left: 0,
-    behavior: "smooth"
-  });
-}
 
 var DATA = [{
   question: "1. Ile dziewcząt kończy szkołę podstawową w krajach o niskich dochodach?",
@@ -173,17 +149,56 @@ var QuestionItem = function QuestionItem(props) {
   );
 };
 
+var CheckButton = function CheckButton() {
+  function checkTheAnswers(e) {
+    e.preventDefault();
+
+    DATA.forEach(function (answer, i) {
+      var questions = document.querySelectorAll("input[name=question_" + i + "]");
+      questions.forEach(function (q) {
+        q.disabled = true;
+        if (q.value == answer.correctAnswer) {
+          q.parentElement.classList.add("goodAnswer");
+          if (q.checked) {
+            score++;
+          }
+        } else if (q.checked) {
+          q.parentElement.classList.add("badAnswer");
+        }
+      });
+    });
+
+    document.querySelector("#verdict").innerHTML = "Tw\xF3j wynik: " + score + " pkt.</br></br>Okazuje si\u0119, \u017Ce nasz \u015Bwiat, pomimo swoich niedoskona\u0142o\u015Bci, jest w znacznie lepszym stanie, ni\u017C si\u0119 spodziewamy.";
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      left: 0,
+      behavior: "smooth"
+    });
+  }
+
+  return React.createElement(
+    "button",
+    { onClick: checkTheAnswers },
+    "Sprawd\u017A"
+  );
+};
+
 var Quiz = function Quiz(props) {
   return React.createElement(
-    "ul",
+    "div",
     null,
-    props.data.map(function (item, i) {
-      return React.createElement(
-        "li",
-        { key: i },
-        React.createElement(QuestionItem, { item: item, questionNumber: i })
-      );
-    })
+    React.createElement(
+      "ul",
+      null,
+      props.data.map(function (item, i) {
+        return React.createElement(
+          "li",
+          { key: i },
+          React.createElement(QuestionItem, { item: item, questionNumber: i })
+        );
+      })
+    ),
+    React.createElement(CheckButton, null)
   );
 };
 

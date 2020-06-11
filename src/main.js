@@ -1,28 +1,4 @@
 let score = 0;
-document.querySelector("#check").addEventListener("click", checkTheAnswers);
-
-
-function checkTheAnswers() {
-  DATA.forEach(function (answer, i) {
-    const questions = document.querySelectorAll(`input[name=question_${i}]`);
-    questions.forEach(function (q) {
-      q.disabled = true;
-      if (q.value == answer.correctAnswer) {
-        q.parentElement.classList.add("goodAnswer");
-        if (q.checked) { score++; }
-      } else if (q.checked) {
-        q.parentElement.classList.add("badAnswer");
-      }
-    });
-  });
-  document.querySelector("#verdict").innerHTML =
-  `Twój wynik: ${score} pkt.</br></br>Okazuje się, że nasz świat, pomimo swoich niedoskonałości, jest w znacznie lepszym stanie, niż się spodziewamy.`;
-window.scrollTo({
-  top: document.body.scrollHeight,
-  left: 0,
-  behavior: "smooth",
-});
-}
 
 const DATA = [
   {
@@ -169,19 +145,53 @@ const QuestionItem = (props) => {
   );
 }
 
+const CheckButton = () => {
+  function checkTheAnswers(e) {
+    e.preventDefault();
+
+    DATA.forEach(function (answer, i) {
+      const questions = document.querySelectorAll(`input[name=question_${i}]`);
+      questions.forEach(function (q) {
+        q.disabled = true;
+        if (q.value == answer.correctAnswer) {
+          q.parentElement.classList.add("goodAnswer");
+          if (q.checked) { score++; }
+        } else if (q.checked) {
+          q.parentElement.classList.add("badAnswer");
+        }
+      });
+    });
+
+    document.querySelector("#verdict").innerHTML =
+    `Twój wynik: ${score} pkt.</br></br>Okazuje się, że nasz świat, pomimo swoich niedoskonałości, jest w znacznie lepszym stanie, niż się spodziewamy.`;
+  window.scrollTo({
+    top: document.body.scrollHeight,
+    left: 0,
+    behavior: "smooth",
+  });
+  }
+
+  return(
+    <button onClick ={checkTheAnswers}>
+      Sprawdź
+    </button>
+  );
+}
 
 const Quiz = (props) => {
   return (
-    <ul>
+    <div>
+      <ul>
       {props.data.map((item, i) => (
         <li key={i}>
           <QuestionItem item={item} questionNumber={i}/>
         </li>
-      ))}
-    </ul>
+        ))}
+      </ul>
+      <CheckButton />
+    </div>
   )
 }
-
 
 ReactDOM.render(
   <Quiz data={DATA} />,
